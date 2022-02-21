@@ -1,54 +1,52 @@
 "use strict";
 exports.__esModule = true;
-exports.validateWithdrawAmount = exports.WithdrawAmount = exports.Withdraw = exports.Deposit = exports.Transaction = exports.ShowBalance = exports.DisplayDetails = exports.validateEmail = exports.GetEmailID = exports.NewAccount = exports.transactionTypeOptions = exports.accountTypeOptions = exports.BackOptons = exports.startApp = exports.MainMenuOptions = exports.WelcomNote = exports.Accountdetails = void 0;
+exports.validateWithdrawAmount = exports.withdrawAmount = exports.withdraw = exports.deposit = exports.transaction = exports.showBalance = exports.displayDetails = exports.validateEmail = exports.getEmailID = exports.newAccount = exports.transactionTypeOptions = exports.accountTypeOptions = exports.backOptons = exports.startApp = exports.mainMenuOptions = exports.welcomeNote = exports.accountDetails = void 0;
 var readline_sync_1 = require("readline-sync");
 var Account_1 = require("./Account");
 var CurrentAccount_1 = require("./CurrentAccount");
 var SavingsAccount_1 = require("./SavingsAccount");
-exports.Accountdetails = new Account_1.Account();
-var EmailIDG = "";
+exports.accountDetails = new Account_1.Account();
+var emailIDG = "";
 var back = false;
-WelcomNote();
-function WelcomNote() {
+welcomeNote();
+function welcomeNote() {
     console.log('\x1b[33m%s\x1b[0m', "...........Dear Customer, Welcome to Our Bank!.............");
     console.log('\x1b[33m%s\x1b[0m', "Below are the services providing at our desk!");
-    MainMenuOptions();
+    mainMenuOptions();
 }
-exports.WelcomNote = WelcomNote;
-function MainMenuOptions() {
+exports.welcomeNote = welcomeNote;
+function mainMenuOptions() {
     console.log('\x1b[36m%s\x1b[0m', "New Account  -N  Account Details - D");
     console.log('\x1b[36m%s\x1b[0m', "View Balnace -B  Transaction     - T");
     console.log('\x1b[36m%s\x1b[0m', "Exit - X");
     startApp();
 }
-exports.MainMenuOptions = MainMenuOptions;
+exports.mainMenuOptions = mainMenuOptions;
 function startApp() {
     var mainMenu = (0, readline_sync_1.question)("Please type your answer(Type the letter specified after ur option):\n").toUpperCase();
-    if (mainMenu == 'N') {
-        console.log('\x1b[34m%s\x1b[0m', "New Account Creation");
-        NewAccount();
-    }
-    else if (mainMenu == 'D') {
-        console.log('\x1b[34m%s\x1b[0m', "Account details!");
-        DisplayDetails();
-    }
-    else if (mainMenu == 'B') {
-        console.log('\x1b[34m%s\x1b[0m', "View Balance");
-        ShowBalance();
-    }
-    else if (mainMenu == 'T') {
-        console.log('\x1b[34m%s\x1b[0m', "Transaction");
-        Transaction();
-    }
-    else if (mainMenu == 'X') {
-    }
-    else {
-        console.log('\x1b[31m%s\x1b[0m', "Invalid Input. Please try again!");
-        MainMenuOptions();
+    switch (mainMenu) {
+        case 'N':
+            console.log('\x1b[34m%s\x1b[0m', "New Account Creation");
+            newAccount();
+        case 'D':
+            console.log('\x1b[34m%s\x1b[0m', "Account details!");
+            displayDetails();
+        case 'B':
+            console.log('\x1b[34m%s\x1b[0m', "View Balance");
+            showBalance();
+        case 'T':
+            console.log('\x1b[34m%s\x1b[0m', "Transaction");
+            transaction();
+        case 'X':
+            console.log('\x1b[34m%s\x1b[0m', "Thanks for using our Application!");
+            break;
+        default:
+            console.log('\x1b[31m%s\x1b[0m', "Invalid Input. Please try again!");
+            mainMenuOptions();
     }
 }
 exports.startApp = startApp;
-function BackOptons() {
+function backOptons() {
     console.log('\x1b[36m%s\x1b[0m', "Retry - R  Back - B");
     var selected = (0, readline_sync_1.question)("Please type your answer(Type the letter specified after ur option):\n").toUpperCase();
     if (selected == "R") {
@@ -59,10 +57,10 @@ function BackOptons() {
     }
     else {
         console.log('\x1b[31m%s\x1b[0m', "Invalid Input. Try again!");
-        BackOptons();
+        backOptons();
     }
 }
-exports.BackOptons = BackOptons;
+exports.backOptons = backOptons;
 function accountTypeOptions() {
     console.log('\x1b[36m%s\x1b[0m', "Savings Account - S  Current Account - C");
 }
@@ -71,7 +69,7 @@ function transactionTypeOptions() {
     console.log('\x1b[36m%s\x1b[0m', "Deposit - D  Withdraw - W");
 }
 exports.transactionTypeOptions = transactionTypeOptions;
-function NewAccount() {
+function newAccount() {
     accountTypeOptions();
     var accountTypeSelected = (0, readline_sync_1.question)("Please type your answer(Type the letter specified after ur option):\n").toUpperCase();
     if (accountTypeSelected == "S") {
@@ -80,57 +78,57 @@ function NewAccount() {
         newsavingsAccount.age = Number((0, readline_sync_1.question)("Enter your Age:"));
         if (newsavingsAccount.age > 68) {
             console.log('\x1b[31m%s\x1b[0m', "As your age is greater than 68, You are not eligible to create account.");
-            MainMenuOptions();
+            mainMenuOptions();
         }
         else {
             newsavingsAccount.location = (0, readline_sync_1.question)('Enter Your Location: ');
             newsavingsAccount.state = (0, readline_sync_1.question)('Enter Your state: ');
             newsavingsAccount.country = (0, readline_sync_1.question)('Enter Your Country: ');
-            GetEmailID();
-            newsavingsAccount.emailID = EmailIDG;
+            getEmailID();
+            newsavingsAccount.emailID = emailIDG;
             console.log('\x1b[32m%s\x1b[0m', 'Savings Account Created Succesfully with Account Number :' + newsavingsAccount.accountNumber);
-            exports.Accountdetails = newsavingsAccount;
+            exports.accountDetails = newsavingsAccount;
             //console.log(Accountdetails);
-            MainMenuOptions();
+            mainMenuOptions();
         }
     }
     else if (accountTypeSelected == "C") {
-        var newcurrentccount = new CurrentAccount_1.CurrentAccount();
-        newcurrentccount.name = (0, readline_sync_1.question)('Enter Your Name:');
-        newcurrentccount.age = Number((0, readline_sync_1.question)("Enter your Age:"));
-        if (newcurrentccount.age > 68) {
+        var newCurrentAccount = new CurrentAccount_1.CurrentAccount();
+        newCurrentAccount.name = (0, readline_sync_1.question)('Enter Your Name:');
+        newCurrentAccount.age = Number((0, readline_sync_1.question)("Enter your Age:"));
+        if (newCurrentAccount.age > 68) {
             console.log('\x1b[31m%s\x1b[0m', "As your age is greater than 68, You are not eligible to create account.");
-            MainMenuOptions();
+            mainMenuOptions();
         }
         else {
-            newcurrentccount.location = (0, readline_sync_1.question)('Enter Your Location: ');
-            newcurrentccount.state = (0, readline_sync_1.question)('Enter Your state: ');
-            newcurrentccount.country = (0, readline_sync_1.question)('Enter Your Country: ');
-            GetEmailID();
-            newcurrentccount.emailID = EmailIDG;
-            console.log('\x1b[32m%s\x1b[0m', 'Current Account Created Succesfully with Account Number :' + newcurrentccount.accountNumber);
-            exports.Accountdetails = newcurrentccount;
+            newCurrentAccount.location = (0, readline_sync_1.question)('Enter Your Location: ');
+            newCurrentAccount.state = (0, readline_sync_1.question)('Enter Your state: ');
+            newCurrentAccount.country = (0, readline_sync_1.question)('Enter Your Country: ');
+            getEmailID();
+            newCurrentAccount.emailID = emailIDG;
+            console.log('\x1b[32m%s\x1b[0m', 'Current Account Created Succesfully with Account Number :' + newCurrentAccount.accountNumber);
+            exports.accountDetails = newCurrentAccount;
             //console.log(Accountdetails);
-            MainMenuOptions();
+            mainMenuOptions();
         }
     }
     else {
         console.log('\x1b[31m%s\x1b[0m', "Invalid input. Try again!");
-        NewAccount();
+        newAccount();
     }
 }
-exports.NewAccount = NewAccount;
-function GetEmailID() {
+exports.newAccount = newAccount;
+function getEmailID() {
     var email = (0, readline_sync_1.question)('Enter Your EmailID: ');
     if (!validateEmail(email)) {
         console.log('\x1b[31m%s\x1b[0m', "Invalid Email!");
-        GetEmailID();
+        getEmailID();
     }
     else {
-        EmailIDG = email;
+        emailIDG = email;
     }
 }
-exports.GetEmailID = GetEmailID;
+exports.getEmailID = getEmailID;
 function validateEmail(Email) {
     if (Email.search('[^ @]*@[^ @]*') == 0) {
         return true;
@@ -140,145 +138,145 @@ function validateEmail(Email) {
     }
 }
 exports.validateEmail = validateEmail;
-function DisplayDetails() {
-    if (exports.Accountdetails.accountNumber == "") {
+function displayDetails() {
+    if (exports.accountDetails.accountNumber == "") {
         console.log('\x1b[31m%s\x1b[0m', "No data found! Please an create Account.");
-        MainMenuOptions();
+        mainMenuOptions();
     }
     else {
-        var accno = (0, readline_sync_1.question)("Please enter the Account Number:");
-        if (accno == exports.Accountdetails.accountNumber) {
+        var accNo = (0, readline_sync_1.question)("Please enter the Account Number:");
+        if (accNo == exports.accountDetails.accountNumber) {
             //console.log(Accountdetails);
-            console.log('\x1b[33m%s\x1b[0m', "Account Number:", exports.Accountdetails.accountNumber);
-            console.log('\x1b[33m%s\x1b[0m', "Account Type:", exports.Accountdetails.accountType);
-            console.log('\x1b[33m%s\x1b[0m', "Customer Name:", exports.Accountdetails.name);
-            console.log('\x1b[33m%s\x1b[0m', "Address:", exports.Accountdetails.location + "," + exports.Accountdetails.state + "," + exports.Accountdetails.country);
-            console.log('\x1b[33m%s\x1b[0m', "EmailID:", exports.Accountdetails.emailID);
-            console.log('\x1b[33m%s\x1b[0m', "Total Balance:", exports.Accountdetails.balance);
-            MainMenuOptions();
+            console.log('\x1b[33m%s\x1b[0m', "Account Number:", exports.accountDetails.accountNumber);
+            console.log('\x1b[33m%s\x1b[0m', "Account Type:", exports.accountDetails.accountType);
+            console.log('\x1b[33m%s\x1b[0m', "Customer Name:", exports.accountDetails.name);
+            console.log('\x1b[33m%s\x1b[0m', "Address:", exports.accountDetails.location + "," + exports.accountDetails.state + "," + exports.accountDetails.country);
+            console.log('\x1b[33m%s\x1b[0m', "EmailID:", exports.accountDetails.emailID);
+            console.log('\x1b[33m%s\x1b[0m', "Total Balance:", exports.accountDetails.balance);
+            mainMenuOptions();
         }
         else {
             console.log('\x1b[31m%s\x1b[0m', "In correct Account Number !");
-            BackOptons();
+            backOptons();
             var retry = !back;
             if (retry)
-                DisplayDetails();
+                displayDetails();
             else
-                MainMenuOptions();
+                mainMenuOptions();
         }
     }
 }
-exports.DisplayDetails = DisplayDetails;
-function ShowBalance() {
-    if (exports.Accountdetails.accountNumber == "") {
+exports.displayDetails = displayDetails;
+function showBalance() {
+    if (exports.accountDetails.accountNumber == "") {
         console.log('\x1b[31m%s\x1b[0m', "No data found! Please create an Account.");
-        MainMenuOptions();
+        mainMenuOptions();
     }
     else {
-        var tmpname = (0, readline_sync_1.question)("Please enter the Account Holder Name:");
-        if (tmpname == exports.Accountdetails.name) {
-            console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.Accountdetails.balance);
-            MainMenuOptions();
+        var tmpName = (0, readline_sync_1.question)("Please enter the Account Holder Name:");
+        if (tmpName == exports.accountDetails.name) {
+            console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.accountDetails.balance);
+            mainMenuOptions();
         }
         else {
             console.log('\x1b[31m%s\x1b[0m', "In correct Account Holder Name !");
-            BackOptons();
+            backOptons();
             var retry = !back;
             if (retry)
-                ShowBalance();
+                showBalance();
             else
-                MainMenuOptions();
+                mainMenuOptions();
         }
     }
 }
-exports.ShowBalance = ShowBalance;
-function Transaction() {
-    if (exports.Accountdetails.accountNumber == "") {
+exports.showBalance = showBalance;
+function transaction() {
+    if (exports.accountDetails.accountNumber == "") {
         console.log('\x1b[31m%s\x1b[0m', "No data found! Please create an Account.");
-        MainMenuOptions();
+        mainMenuOptions();
     }
     else {
         transactionTypeOptions();
         var selected = (0, readline_sync_1.question)("Please type your answer(Type the letter specified after ur option):\n").toUpperCase();
         if (selected == "D") {
-            Deposit();
+            deposit();
         }
         else if (selected == "W") {
-            Withdraw();
+            withdraw();
         }
         else {
             console.log('\x1b[31m%s\x1b[0m', "Invalid Input!");
-            Transaction();
+            transaction();
         }
     }
 }
-exports.Transaction = Transaction;
-function Deposit() {
+exports.transaction = transaction;
+function deposit() {
     var accno = (0, readline_sync_1.question)("Please enter the Account Number:");
-    if (accno == exports.Accountdetails.accountNumber) {
-        console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.Accountdetails.balance);
-        var amountdepositing = Number((0, readline_sync_1.question)("Please Enter the Amount to be deposited: "));
-        exports.Accountdetails.balance += amountdepositing;
-        console.log('\x1b[32m%s\x1b[0m', "Deposit of " + amountdepositing + " is Successfull!");
-        console.log('\x1b[33m%s\x1b[0m', "Available Balance: " + exports.Accountdetails.balance);
-        MainMenuOptions();
+    if (accno == exports.accountDetails.accountNumber) {
+        console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.accountDetails.balance);
+        var amountDepositing = Number((0, readline_sync_1.question)("Please Enter the Amount to be deposited: "));
+        exports.accountDetails.balance += amountDepositing;
+        console.log('\x1b[32m%s\x1b[0m', "Deposit of " + amountDepositing + " is Successfull!");
+        console.log('\x1b[33m%s\x1b[0m', "Available Balance: " + exports.accountDetails.balance);
+        mainMenuOptions();
     }
     else {
         console.log('\x1b[31m%s\x1b[0m', "In correct Account Number !");
-        BackOptons();
+        backOptons();
         var retry = !back;
         if (retry)
-            Deposit();
+            deposit();
         else
-            MainMenuOptions();
+            mainMenuOptions();
     }
 }
-exports.Deposit = Deposit;
-function Withdraw() {
+exports.deposit = deposit;
+function withdraw() {
     var accno = (0, readline_sync_1.question)("Please enter the Account Number:");
-    if (accno == exports.Accountdetails.accountNumber) {
-        console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.Accountdetails.balance);
-        if (exports.Accountdetails.balance > exports.Accountdetails.minimumBalance) {
-            console.log('\x1b[33m%s\x1b[0m', "Withdrawble Balance: " + (exports.Accountdetails.balance - exports.Accountdetails.minimumBalance));
-            WithdrawAmount();
+    if (accno == exports.accountDetails.accountNumber) {
+        console.log('\x1b[33m%s\x1b[0m', "Account Balance: " + exports.accountDetails.balance);
+        if (exports.accountDetails.balance > exports.accountDetails.minimumBalance) {
+            console.log('\x1b[33m%s\x1b[0m', "Withdrawble Balance: " + (exports.accountDetails.balance - exports.accountDetails.minimumBalance));
+            withdrawAmount();
         }
         else {
             console.log('\x1b[31m%s\x1b[0m', "Not Eligible to withdraw as balance is less than Minimum balance");
-            MainMenuOptions();
+            mainMenuOptions();
         }
     }
     else {
         console.log('\x1b[31m%s\x1b[0m', "In correct Account Number !");
-        BackOptons();
+        backOptons();
         var retry = !back;
         if (retry)
-            Withdraw();
+            withdraw();
         else
-            MainMenuOptions();
+            mainMenuOptions();
     }
 }
-exports.Withdraw = Withdraw;
-function WithdrawAmount() {
-    var amountwithdrawing = Number((0, readline_sync_1.question)("Please Enter the Amount to be withdraw: "));
-    if (!validateWithdrawAmount(amountwithdrawing)) {
+exports.withdraw = withdraw;
+function withdrawAmount() {
+    var amountWithdrawing = Number((0, readline_sync_1.question)("Please Enter the Amount to be withdraw: "));
+    if (!validateWithdrawAmount(amountWithdrawing)) {
         console.log('\x1b[31m%s\x1b[0m', "Insufficient Amount! please enter the amount less than withdrawable amount ");
-        BackOptons();
+        backOptons();
         var retry = !back;
         if (retry)
-            WithdrawAmount();
+            withdrawAmount();
         else
-            MainMenuOptions();
+            mainMenuOptions();
     }
     else {
-        exports.Accountdetails.balance -= amountwithdrawing;
-        console.log('\x1b[32m%s\x1b[0m', "Withdrawal of " + amountwithdrawing + " is Successfull!");
-        console.log('\x1b[33m%s\x1b[0m', "Available Balance: " + exports.Accountdetails.balance);
-        MainMenuOptions();
+        exports.accountDetails.balance -= amountWithdrawing;
+        console.log('\x1b[32m%s\x1b[0m', "Withdrawal of " + amountWithdrawing + " is Successfull!");
+        console.log('\x1b[33m%s\x1b[0m', "Available Balance: " + exports.accountDetails.balance);
+        mainMenuOptions();
     }
 }
-exports.WithdrawAmount = WithdrawAmount;
+exports.withdrawAmount = withdrawAmount;
 function validateWithdrawAmount(amountwithdrawing) {
-    if (exports.Accountdetails.balance - amountwithdrawing >= exports.Accountdetails.minimumBalance) {
+    if (exports.accountDetails.balance - amountwithdrawing >= exports.accountDetails.minimumBalance) {
         return true;
     }
     else {
